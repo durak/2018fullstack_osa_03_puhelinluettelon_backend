@@ -33,6 +33,16 @@ app.get('/api/persons', (request, response) => {
     response.json(persons)
 })
 
+app.get('/api/persons/:id', (request, response) => {
+    const person = persons.find((person) => { return person.id === Number(request.params.id) })
+    if (person) {
+        response.json(person)
+    } else {
+        response.status(404).end()
+
+    }
+})
+
 app.get('/info', (request, response) => {
     response.send(`<p>puhelinluettelossa ${persons.length} henkilön tiedot</p>
     <p>${new Date()}</p>`)
