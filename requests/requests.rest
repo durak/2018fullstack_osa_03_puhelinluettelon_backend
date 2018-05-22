@@ -14,6 +14,6 @@ POST http://localhost:3001/api/persons
 content-type: application/json
 
 {
-    "name": "testisyöte REST clientistä",
-    "number": "112"    
+    "name" : "testisyöte",
+    "number" : 112
 }
