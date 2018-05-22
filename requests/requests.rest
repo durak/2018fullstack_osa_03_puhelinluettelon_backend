@@ -8,3 +8,12 @@ GET http://localhost:3001/info
 
 DELETE http://localhost:3001/api/persons/2
 
+###
+
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "name": "testisyöte REST clientistä",
+    "number": "112"    
+}

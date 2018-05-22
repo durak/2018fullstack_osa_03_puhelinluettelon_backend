@@ -48,6 +48,18 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+    const person = {
+        name: body.name,
+        number: body.number,
+        id: Math.floor(Math.random() * Math.floor(99999999))
+    }
+    persons = persons.concat(person)
+    console.log(persons)
+    response.json(person)
+})
+
 app.get('/info', (request, response) => {
     response.send(`<p>puhelinluettelossa ${persons.length} henkilön tiedot</p>
     <p>${new Date()}</p>`)
