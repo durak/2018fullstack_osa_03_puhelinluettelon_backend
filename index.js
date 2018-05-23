@@ -30,8 +30,10 @@ let persons = [
 
 const app = express()
 app.use(bodyParser.json())
-app.use(morgan('tiny'))
 
+// Pyyntöjen mukana tuleva data
+morgan.token('req-body', (req, res) => { return JSON.stringify(req.body) })
+app.use(morgan(':method :url :req-body :status :res[content-length] - :response-time ms'))
 
 app.get('/api/persons', (request, response) => {
     response.json(persons)
