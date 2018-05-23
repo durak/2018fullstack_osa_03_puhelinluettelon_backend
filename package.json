@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/durak/2018fullstack_osa_03_puhelinluettelon_backend#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.4"
