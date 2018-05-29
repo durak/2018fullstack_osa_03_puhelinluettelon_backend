@@ -17,3 +17,25 @@ content-type: application/json
     "name" : "testisyöte",
     "number" : 112
 }
+
+###
+
+GET https://FS2018puhelin.now.sh/api/persons
+
+###
+
+GET https://FS2018puhelin.now.sh/info
+
+###
+
+DELETE https://FS2018puhelin.now.sh/api/persons/2
+
+###
+
+POST https://FS2018puhelin.now.sh/api/persons
+content-type: application/json
+
+{
+    "name" : "testisyöte",
+    "number" : 112
+}

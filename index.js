@@ -32,6 +32,8 @@ let persons = [
 const app = express()
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.static('build'))
+
 
 // Pyyntöjen mukana tuleva data
 morgan.token('req-body', (req, res) => { return JSON.stringify(req.body) })
