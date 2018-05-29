@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const cors = require('cors')
 
 
 
@@ -30,6 +31,7 @@ let persons = [
 
 const app = express()
 app.use(bodyParser.json())
+app.use(cors())
 
 // Pyyntöjen mukana tuleva data
 morgan.token('req-body', (req, res) => { return JSON.stringify(req.body) })
