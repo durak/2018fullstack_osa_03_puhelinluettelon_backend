@@ -1,5 +1,6 @@
 {
     "env": {
         "MONGODB_URI": "@fs-phones-prod"
-    }
+    },
+    "alias": "fs2018puhelin"
 }
