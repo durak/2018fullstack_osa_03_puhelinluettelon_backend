@@ -4,36 +4,10 @@ const morgan = require('morgan')
 const cors = require('cors')
 const Person = require('./models/person')
 
-
-let persons = [
-    {
-        "name": "Arto Hellas",
-        "number": "040-123456",
-        "id": 1
-    },
-    {
-        "name": "Martti Tienari",
-        "number": "040-123456",
-        "id": 2
-    },
-    {
-        "name": "Arto Järvinen",
-        "number": "040-123456",
-        "id": 3
-    },
-    {
-        "name": "Lea Kutvonen",
-        "number": "040-123456",
-        "id": 4
-    }
-]
-
-
 const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static('build'))
-
 
 // Pyyntöjen mukana tuleva data
 morgan.token('req-body', (req, res) => { return JSON.stringify(req.body) })
@@ -109,6 +83,24 @@ app.post('/api/persons', (request, response) => {
     persons = persons.concat(person)
     response.json(person)
  */
+})
+
+app.put('/api/persons/:id', (request, response) => {
+    const body = request.body
+    const person = {
+        name: body.name,
+        number: body.number
+    }
+
+    Person
+        .findByIdAndUpdate(request.params.id, person, { new: true })
+        .then(updatedPerson => {
+            response.json(Person.format(updatedPerson))
+        })
+        .catch(error => {
+            console.log(error)
+            response.status(400).send({ error: 'malformatted id' })
+        })
 })
 
 app.get('/info', (request, response) => {
