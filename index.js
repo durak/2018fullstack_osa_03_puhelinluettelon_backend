@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
-
+const Person = require('./models/person')
 
 
 let persons = [
@@ -39,8 +39,20 @@ app.use(express.static('build'))
 morgan.token('req-body', (req, res) => { return JSON.stringify(req.body) })
 app.use(morgan(':method :url :req-body :status :res[content-length] - :response-time ms'))
 
+const formatPerson = (person) => {
+    return {
+      name: person.name,
+      number: person.number,
+      id: person._id
+    }
+  }
+
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Person
+        .find({})
+        .then(persons => {
+            response.json(persons.map(formatPerson))
+        })
 })
 
 app.get('/api/persons/:id', (request, response) => {
