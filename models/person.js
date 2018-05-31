@@ -10,6 +10,14 @@ const personSchema = new mongoose.Schema({
     number: String
 })
 
+personSchema.statics.format = function (person) {
+    return {
+        name: person.name,
+        number: person.number,
+        id: person._id
+    }
+}
+
 // Modeli
 const Person = mongoose.model('Person', personSchema)
 

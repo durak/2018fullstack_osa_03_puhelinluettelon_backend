@@ -39,19 +39,12 @@ app.use(express.static('build'))
 morgan.token('req-body', (req, res) => { return JSON.stringify(req.body) })
 app.use(morgan(':method :url :req-body :status :res[content-length] - :response-time ms'))
 
-const formatPerson = (person) => {
-    return {
-      name: person.name,
-      number: person.number,
-      id: person._id
-    }
-  }
-
 app.get('/api/persons', (request, response) => {
     Person
         .find({})
         .then(persons => {
-            response.json(persons.map(formatPerson))
+            persons = persons.map(Person.format)
+            response.json(persons)
         })
 })
 
