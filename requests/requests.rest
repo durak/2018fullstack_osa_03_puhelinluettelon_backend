@@ -20,6 +20,15 @@ content-type: application/json
 
 ###
 
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "name" : "testisyöte" 
+}
+
+###
+
 GET https://FS2018puhelin.now.sh/api/persons
 
 ###

@@ -46,6 +46,10 @@ app.get('/api/persons', (request, response) => {
             persons = persons.map(Person.format)
             response.json(persons)
         })
+        .catch(error => {
+            console.log(error)
+            // ...
+        })
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -70,7 +74,21 @@ app.post('/api/persons', (request, response) => {
         return response.status(400).json({ error: 'name or number missing' })
     }
 
-    if (persons.map((p) => p.name).includes(body.name)) {
+    const person = new Person({
+        name: body.name,
+        number: body.number         
+      })
+
+    person
+        .save()
+        .then(savedPerson => {
+            response.json(Person.format(savedPerson))
+        })
+        .catch(error => {
+            console.log(error)
+            // ...
+        })
+/*     if (persons.map((p) => p.name).includes(body.name)) {
         return response.status(400).json({ error: 'name must be unique' })
     }
 
@@ -80,8 +98,8 @@ app.post('/api/persons', (request, response) => {
         id: Math.floor(Math.random() * Math.floor(99999999))
     }
     persons = persons.concat(person)
-    // console.log(persons)
     response.json(person)
+ */
 })
 
 app.get('/info', (request, response) => {
