@@ -27,13 +27,27 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/api/persons/:id', (request, response) => {
-    const person = persons.find((person) => { return person.id === Number(request.params.id) })
+    Person
+    .findById(request.params.id)
+    .then(person => {
+        if (person) {
+            response.json(Person.format(person))
+        } else {
+            response.status(404).end()
+        }
+    })
+    .catch(error => {
+        console.log(error)    
+        response.status(400).send({error: 'malformatted id'})
+    })
+
+/*     const person = persons.find((person) => { return person.id === Number(request.params.id) })
     if (person) {
         response.json(person)
     } else {
         response.status(404).end()
 
-    }
+    } */
 })
 
 app.delete('/api/persons/:id', (request, response) => {
@@ -104,8 +118,13 @@ app.put('/api/persons/:id', (request, response) => {
 })
 
 app.get('/info', (request, response) => {
-    response.send(`<p>puhelinluettelossa ${persons.length} henkilön tiedot</p>
-    <p>${new Date()}</p>`)
+    Person.count()
+    .then(count => {
+        response.send(`<p>puhelinluettelossa ${count} henkilön tiedot
+        <p>${new Date()}</p>`)
+    })
+/*     response.send(`<p>puhelinluettelossa ${persons.length} henkilön tiedot</p>
+    <p>${new Date()}</p>`) */
 })
 
 const port = 3001
