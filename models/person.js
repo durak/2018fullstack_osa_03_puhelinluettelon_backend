@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
-// Yhteys
-const url = 'mongodb://fullstackphones:@ds033607.mlab.com:33607/fs-phones'
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
+const url = process.env.MONGODB_URI
+
 mongoose.connect(url)
 
 // Skeema
