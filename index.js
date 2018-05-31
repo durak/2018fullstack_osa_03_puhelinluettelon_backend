@@ -76,15 +76,24 @@ app.post('/api/persons', (request, response) => {
         number: body.number         
       })
 
-    person
-        .save()
-        .then(savedPerson => {
-            response.json(Person.format(savedPerson))
+    Person
+        .find({ name: person.name })
+        .then(found => {
+            if (found.length > 0) {                
+                response.status(400).json({ error: 'name must be unique' })
+            } else {
+                person
+                    .save()
+                    .then(savedPerson => {
+                        response.json(Person.format(savedPerson))
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        // ...
+                    })
+            }
         })
-        .catch(error => {
-            console.log(error)
-            // ...
-        })
+
 /*     if (persons.map((p) => p.name).includes(body.name)) {
         return response.status(400).json({ error: 'name must be unique' })
     }
